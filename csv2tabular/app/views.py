@@ -6,44 +6,52 @@ from django.shortcuts import render
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
+from app.forms import UploadForm
+from app.utils import handle_uploaded_file
+from django.shortcuts import HttpResponseRedirect
+from app.models import Files
 
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
+
+    files = Files.objects.all()
     return render(
         request,
         'app/index.html',
         context_instance = RequestContext(request,
         {
-            'title':'Home Page',
-            'year':datetime.now().year,
+            'files': files,
         })
     )
 
-def contact(request):
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
+def upload(request):
+    if request.method == 'POST':
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+    else:
+        form = UploadForm()
     return render(
         request,
-        'app/contact.html',
+        'app/upload.html',
         context_instance = RequestContext(request,
         {
-            'title':'Contact',
-            'message':'Your contact page.',
-            'year':datetime.now().year,
+            'form': form
         })
     )
 
-def about(request):
-    """Renders the about page."""
+def view_data(request, id):
+    """Renders the home page."""
     assert isinstance(request, HttpRequest)
+
+    file = Files.objects.get(id=id)
     return render(
         request,
-        'app/about.html',
+        'app/show_data.html',
         context_instance = RequestContext(request,
         {
-            'title':'About',
-            'message':'Your application description page.',
-            'year':datetime.now().year,
+            'file': file,
         })
     )
