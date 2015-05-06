@@ -5,17 +5,38 @@
 <div class="row">
     <div class="col-md-12">
         <br/>
+        <div class="row">
+            <div class="form-group col-xs-6 col-md-4">
+                <select id="column1" class="form-control">
+                </select>
+            </div>
+            <div class="form-group col-xs-6 col-md-4">
+                <select id="column2" class="form-control">
+                </select>
+            </div>
+            <div class="form-group col-xs-4">
+                <label></label>
+                <input type="button" class="btn btn-success btn-flat" id="crosstabulation" value="Show cross tabulation"/>
+            </div>
+        </div>
         <div class="panel panel-primary">
             <div class="panel-heading">{{file.title}}</div>  
+            <input id="file_url" value="/{{file.file.url}}" hidden="hidden"/>
             <div class="panel-body" id="csv_data">
-                <input id="file_url" value="/{{file.file.url}}" hidden="hidden"/>
             </div>
         </div>
     </div>
 </div>
 <script>
     $(document).ready(function () {
-        csv2tabular($('#file_url').val());
+        csv_file = $('#file_url').val();
+        var options = csv2tabular(csv_file, $('#column1'), $('#column2'), $('#csv_data'));
+        $('#column1').append(options);
+        $('#column2').append(options);
+
+        $('#crosstabulation').click(function () {
+            crossTabular(csv_file, $('#column1').val(), $('#column2').val(), $('#csv_data'))
+        });
     });
 </script>
 
