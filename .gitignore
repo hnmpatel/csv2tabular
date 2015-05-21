@@ -187,9 +187,3 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-
-# Custom
-*.pyc
-*.sln
-*.config
-csv2tabular/media
