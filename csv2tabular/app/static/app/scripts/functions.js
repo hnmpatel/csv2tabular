@@ -22,7 +22,7 @@
                 html += "</tr>";
             }
             else{
-                html += "<th>" + columns[0] + "</th>";
+                html += "<td>" + columns[0] + "</td>";
                 for (var j = 1; j < len; j++){
                     html += "<td>" + columns[j] + "</td>";
                 }
@@ -34,8 +34,12 @@
 
         // insert into div
         target.append(html);
-        option1.append(options);
-        option2.append(options);
+        if (option1) {
+            option1.append(options);
+        }
+        if (option2) {
+            option2.append(options);
+        }
 
     });
 }

@@ -8,10 +8,16 @@
         <div class="row">
             <div class="form-group col-xs-6 col-md-4">
                 <select id="column1" class="form-control">
+                    {% for col in columns %}
+                    <option value="{{col}}">{{col}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="form-group col-xs-6 col-md-4">
                 <select id="column2" class="form-control">
+                    {% for col in columns %}
+                    <option value="{{col}}">{{col}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="form-group col-xs-4">
@@ -23,6 +29,8 @@
             <div class="panel-heading">{{file.title}}</div>  
             <input id="file_url" value="/{{file.file.url}}" hidden="hidden"/>
             <div class="panel-body" id="csv_data">
+                {% block csv_data %}
+                {% endblock csv_data %}
             </div>
         </div>
     </div>
@@ -30,10 +38,10 @@
 <script>
     $(document).ready(function () {
         csv_file = $('#file_url').val();
-        var options = csv2tabular(csv_file, $('#column1'), $('#column2'), $('#csv_data'));
+        var options = csv2tabular(csv_file, '', '', $('#csv_data'));
 
         $('#crosstabulation').click(function () {
-            crossTabular(csv_file, $('#column1').val(), $('#column2').val(), $('#csv_data'))
+            window.location.href = '/show_tabular_data/' + $('#column1').val() + '/' + $('#column2').val()
         });
     });
 </script>

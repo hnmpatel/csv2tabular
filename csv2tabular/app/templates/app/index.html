@@ -7,13 +7,16 @@
         <br/>
         <div class="panel panel-primary">
             <div class="panel-heading">List of files</div>  
-            <div class="list-group">
+            <ul class="list-group">
                 {% for file in files %}
-                <a href="/show-data/{{file.id}}/" class="list-group-item disabled">
+                <li class="list-group-item">
+                <a href="/show-data/{{file.id}}/" class="disabled">
                     {{file.title}}
                 </a>
+                <a href="/show-db-data/{{file.id}}/" class="btn-primary pull-right">Show data from db</a>
+                </li>
                 {% endfor %}
-            </div>
+            </ul>
         </div>
     </div>
 </div>

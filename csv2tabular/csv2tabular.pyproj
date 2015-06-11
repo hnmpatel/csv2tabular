@@ -35,7 +35,6 @@
     <Compile Include="app\signals.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\utils.py" />
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="manage.py" />
@@ -58,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\static\app\scripts\functions.js" />
+    <Content Include="app\templates\app\show_db_data.html" />
     <Content Include="app\templates\app\show_data.html" />
     <Content Include="app\templates\app\upload.html" />
     <Content Include="requirements.txt" />

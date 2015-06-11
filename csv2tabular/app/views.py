@@ -8,7 +8,7 @@ from django.template import RequestContext
 from datetime import datetime
 from app.forms import UploadForm
 from django.shortcuts import HttpResponseRedirect
-from app.models import Files
+from app.models import Files, Row
 
 def home(request):
     """Renders the home page."""
@@ -52,5 +52,33 @@ def view_data(request, id):
         context_instance = RequestContext(request,
         {
             'file': file,
+        })
+    )
+
+def view_db_data(request, id):
+    """Renders the home page."""
+    assert isinstance(request, HttpRequest)
+
+    file = Files.objects.get(id=id)
+    columns = Row.objects.get(csv_file=file, type='header').row.split(',')
+    print columns
+    return render(
+        request,
+        'app/show_db_data.html',
+        context_instance = RequestContext(request,
+        {
+            'file': file,
+            'columns': columns,
+        })
+    )
+
+def tabular_data(col1=0, col2=0):
+    return render(
+        request,
+        'app/show_tabular_data.html',
+        context_instance = RequestContext(request,
+        {
+            'file': file,
+            'columns': columns,
         })
     )
