@@ -7,7 +7,6 @@ from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
 from app.forms import UploadForm
-from app.utils import handle_uploaded_file
 from django.shortcuts import HttpResponseRedirect
 from app.models import Files
 

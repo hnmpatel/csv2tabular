@@ -1,0 +1,37 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12">
+        <br/>
+        <div class="row">
+            <div class="form-group col-xs-6 col-md-4">
+                <select id="column1" class="form-control">
+                    {% for col in columns %}
+                    <option value="{{col.id}}">{{col.title}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-xs-6 col-md-4">
+                <select id="column2" class="form-control">
+                    {% for col in columns %}
+                    <option value="{{col.id}}">{{col.title}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-xs-4">
+                <label></label>
+                <input type="button" class="btn btn-success btn-flat" id="crosstabulation" value="Show cross tabulation"/>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{file.title}}</div>  
+            <input id="file_url" value="/{{file.file.url}}" hidden="hidden"/>
+            <div class="panel-body" id="csv_data">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
