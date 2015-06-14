@@ -61,7 +61,6 @@ def view_db_data(request, id):
 
     file = Files.objects.get(id=id)
     columns = Row.objects.get(csv_file=file, type='header').row.split(',')
-    print columns
     return render(
         request,
         'app/show_db_data.html',
@@ -72,7 +71,36 @@ def view_db_data(request, id):
         })
     )
 
-def tabular_data(col1=0, col2=0):
+def tabular_data(request, fid, col1, col2):
+    file = Files.objects.get(id=int(fid))
+    columns = Row.objects.get(csv_file=file, type='header').row.split(',')
+    idx1, idx2 = 0, 0
+
+    for idx, col in enumerate(columns):
+        if col == col1:
+            idx1 = idx
+            continue
+        if col == col2:
+            idx2 = idx
+
+    x = set()
+    y = set()
+    rows = Row.objects.filter(csv_file=file, type='data')
+    for row in rows:
+        cells = row.row.split(',')
+        t = tuple(cells[idx1], cells[idx2])
+        x.add(cells[idx1])
+        y.add(cells[idx2])
+        if cells[idx1] in x:
+            pass
+        else:
+            pass
+
+        print cells[idx2]
+
+    data = list()
+    result = dict()
+
     return render(
         request,
         'app/show_tabular_data.html',

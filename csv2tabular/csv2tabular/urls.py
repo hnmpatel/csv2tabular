@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     url(r'^show-data/(?P<id>\d+)/$', 'app.views.view_data', name='show-data'),
     url(r'^show-db-data/(?P<id>\d+)/$', 'app.views.view_db_data', name='view_db_data'),
 
-    url(r'^show_tabular_data/(?P<col1>\d+)/(?P<col2>\d+)/$', 'app.views.tabular_data', name='tabular_data'),
+    url(r'^show_tabular_data/(?P<fid>\d+)/(?P<col1>[\w-]+)/(?P<col2>[\w-]+)/$', 'app.views.tabular_data', name='tabular_data'),
 )
 
 if settings.DEBUG:

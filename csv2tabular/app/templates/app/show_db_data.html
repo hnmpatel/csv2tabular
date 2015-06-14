@@ -6,6 +6,7 @@
     <div class="col-md-12">
         <br/>
         <div class="row">
+            <input type="hidden" value="{{file.id}}" id="file-id"/>
             <div class="form-group col-xs-6 col-md-4">
                 <select id="column1" class="form-control">
                     {% for col in columns %}
@@ -41,7 +42,7 @@
         var options = csv2tabular(csv_file, '', '', $('#csv_data'));
 
         $('#crosstabulation').click(function () {
-            window.location.href = '/show_tabular_data/' + $('#column1').val() + '/' + $('#column2').val()
+            window.location.href = '/show_tabular_data/' + $('#file-id').val() + '/' + $('#column1').val() + '/' + $('#column2').val()
         });
     });
 </script>
