@@ -1,5 +1,36 @@
 {% extends "app/show_db_data.html" %}
 
-
 {% block csv_data %}
+<div class="panel-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <td></td>
+                {% for c in header %}
+                <th>
+                    {{c}}
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in rows %}
+            <tr>
+                <th>
+                    {{r}}
+                </th>
+                {% for key, value in data.items %}
+                {% if key == r %}
+                {% for key, value in value.items %}
+                <td>    
+                    {{value}}
+                </td>
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock csv_data %}

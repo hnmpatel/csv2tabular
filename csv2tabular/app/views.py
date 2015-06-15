@@ -72,34 +72,46 @@ def view_db_data(request, id):
     )
 
 def tabular_data(request, fid, col1, col2):
+    data = {}
+
     file = Files.objects.get(id=int(fid))
     columns = Row.objects.get(csv_file=file, type='header').row.split(',')
-    idx1, idx2 = 0, 0
+    c1, c2 = 0, 0
 
     for idx, col in enumerate(columns):
         if col == col1:
-            idx1 = idx
+            c1 = idx
             continue
         if col == col2:
-            idx2 = idx
+            c2 = idx
 
-    x = set()
-    y = set()
+    c_list = [];
+    r_list = [];
+    result = {};
+    temp = {}
     rows = Row.objects.filter(csv_file=file, type='data')
-    for row in rows:
-        cells = row.row.split(',')
-        t = tuple(cells[idx1], cells[idx2])
-        x.add(cells[idx1])
-        y.add(cells[idx2])
-        if cells[idx1] in x:
-            pass
+    for idx, row in enumerate(rows):
+        cols = row.row.split(',')
+        if not temp.has_key(cols[c2]):
+            c_list.append(cols[c2])
+            temp[cols[c2]] = []
+            
+        if result.has_key(cols[c1]):
+            result[cols[c1]].append(cols[c2])
         else:
-            pass
+            r_list.append(cols[c1])
+            result[cols[c1]] = []
+            result[cols[c1]].append(cols[c2])
 
-        print cells[idx2]
-
-    data = list()
-    result = dict()
+    count = 0;
+    for key in result.keys():
+        data[key] = {}
+        for c in c_list:
+            count = 0;
+            for ele in result[key]:
+                if ele == c:
+                    count += 1;
+            data[str(key)][str(c)] = count
 
     return render(
         request,
@@ -108,5 +120,8 @@ def tabular_data(request, fid, col1, col2):
         {
             'file': file,
             'columns': columns,
+            'header': c_list,
+            'rows': r_list,
+            'data' : data,
         })
     )

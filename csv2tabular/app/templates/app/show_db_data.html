@@ -29,10 +29,10 @@
         <div class="panel panel-primary">
             <div class="panel-heading">{{file.title}}</div>  
             <input id="file_url" value="/{{file.file.url}}" hidden="hidden"/>
+            {% block csv_data %}
             <div class="panel-body" id="csv_data">
-                {% block csv_data %}
-                {% endblock csv_data %}
             </div>
+            {% endblock csv_data %}
         </div>
     </div>
 </div>
